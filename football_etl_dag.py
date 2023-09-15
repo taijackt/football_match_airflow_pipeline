@@ -1,13 +1,13 @@
 from airflow import DAG
 from airflow.operators.bash import BashOperator
-from airflow.operators.python_operator import PythonOperator
+from airflow.operators.python_operator import PythonOperator, BranchPythonOperator
 from airflow.utils.dates import days_ago
 from datetime import datetime, timedelta
 
 def get_football_match_data():
     import FootballMatchExtractor
     extractor = FootballMatchExtractor.Extractor(link="https://www.theguardian.com/football/results", days_ago=1)
-    extractor.get_data()
+    return extractor.get_data()
 
 default_args = {
     "owner":"admin",
@@ -32,6 +32,11 @@ get_match_data = PythonOperator(
     dag=dag,
     do_xcom_push=True
 )
+
+# branching = BranchPythonOperator(
+#     task_id="branching",
+#     python_callable=lambda x: 
+# )
 
 # upload_match_data = BashOperator(
 #     task_id="upload-football-data",

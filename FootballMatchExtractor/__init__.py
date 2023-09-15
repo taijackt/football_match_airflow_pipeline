@@ -39,5 +39,8 @@ class Extractor:
             
             pd.DataFrame(matches).to_json(f"./match-data-{self.target_date.strftime('%Y-%m-%d')}.json", orient="records")
             print("Save sucessfully")
+            return f"match-data-{self.target_date.strftime('%Y-%m-%d')}.json"
         else:
             print(f"No match on day {self.target_date.strftime('%Y-%m-%d')}.")
+            return None
+
