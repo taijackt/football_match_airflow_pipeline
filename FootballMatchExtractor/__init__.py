@@ -4,7 +4,7 @@ from datetime import datetime,timedelta
 import pandas as pd
 
 class Extractor:
-    def __init__(self, link, days_ago=1):
+    def __init__(self, link="https://www.theguardian.com/football/results", days_ago=1):
         self.link = link #"https://www.theguardian.com/football/results"
         self.response = requests.get(self.link).text
         self.target_date = datetime.today() - timedelta(days=days_ago)
@@ -36,7 +36,7 @@ class Extractor:
                         }
                     )  
             
-            pd.DataFrame(matches).to_csv(f"./match-data-{self.target_date.strftime('%Y-%m-%d')}.csv", index=False)
+            pd.DataFrame(matches).to_json(f"./match-data-{self.target_date.strftime('%Y-%m-%d')}.json", orient="records")
             print("Save sucessfully")
         else:
             print(f"No match on day {self.target_date.strftime('%Y-%m-%d')}.")

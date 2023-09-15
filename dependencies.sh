@@ -7,3 +7,4 @@ sudo pip install requests
 sudo pip install beautifulsoup4
 sudo pip install lxml
 sudo pip install html5lib
+sudo pip install boto3

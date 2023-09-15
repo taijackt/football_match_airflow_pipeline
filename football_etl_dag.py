@@ -3,7 +3,7 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.utils.dates import days_ago
 from datetime import datetime, timedelta
 
-def get_match_data():
+def get_football_match_data():
     import FootballMatchExtractor
     extractor = FootballMatchExtractor.Extractor(link="https://www.theguardian.com/football/results", days_ago=1)
     extractor.get_data()
@@ -27,7 +27,7 @@ dag = DAG(
 
 get_match_data = PythonOperator(
     task_id="extract-football-data",
-    python_callable="get_match_data"m
+    python_callable=get_football_match_data,
     dag=dag
 )
 
