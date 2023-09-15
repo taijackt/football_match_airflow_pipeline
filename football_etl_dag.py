@@ -1,4 +1,5 @@
 from airflow import DAG
+from airflow.operators.bash_opreator import BashOperator
 from airflow.operators.python_operator import PythonOperator
 from airflow.utils.dates import days_ago
 from datetime import datetime, timedelta
@@ -28,7 +29,13 @@ dag = DAG(
 get_match_data = PythonOperator(
     task_id="extract-football-data",
     python_callable=get_football_match_data,
-    dag=dag
+    dag=dag,
+    do_xcom_push=True
 )
+
+# upload_match_data = BashOperator(
+#     task_id="upload-football-data",
+#     bash_command=""
+# )
 
 get_match_data
