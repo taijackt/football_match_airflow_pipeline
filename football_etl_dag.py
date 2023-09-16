@@ -1,7 +1,7 @@
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.python_operator import PythonOperator, BranchPythonOperator
-from airflow.opreators.dummy import DummyOperator
+from airflow.operators.dummy import DummyOperator
 from airflow.utils.dates import days_ago
 from datetime import datetime, timedelta
 import FootballMatchExtractor
@@ -53,13 +53,13 @@ branching = BranchPythonOperator(
 
 upload_file = BashOperator(
     task_id="upload-file-to-s3",
-    bash_command=f"aws s3 ./match-data-{get_date()}.json s3:/// ",
+    bash_command=f"aws s3 cp ~/airflow/match-data-{get_date()}.json s3://football-match-etl-demo ",
     dag=dag
 )
 
 remove_local_file = BashOperator(
-    task="remove_local_file",
-    bash_command=f"rm ./match-data-{get_date()}.json ",
+    task_id="remove-local-file",
+    bash_command=f"rm ~/airflow/match-data-{get_date()}.json ",
     dag=dag
 )
 

@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime,timedelta
 import pandas as pd
-import boto3
 
 class Extractor:
     def __init__(self, link="https://www.theguardian.com/football/results", days_ago=1):
