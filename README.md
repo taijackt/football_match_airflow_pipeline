@@ -16,9 +16,13 @@
 ### Project Diagram
 ![diagram](https://github.com/taijackt/football_match_airflow_pipeline/blob/main/screenshots/diagram.jpg)
 
-### Prerequsiite
+### Tools
 - Python>=3.7
-- AWS account for EC2 and S3
+  - Pandas
+  - BeautifulSoup
+  - Requests
+  - Airflow
+- AWS CLI
 
 ### Data Preview:
 <table>
@@ -31,6 +35,13 @@
   <td><img src="https://github.com/taijackt/football_match_airflow_pipeline/blob/main/screenshots/transformed_data.jpg" align="left"  width="400" /></td>
 </tr>
 </table>
+
+### Steps:
+1. Create an EC2 instance (Ubuntu) on AWS.
+2. Install all the dependencies in `dependencies.sh`.
+3. Copy the dag file `football_etl_dag.py` and directory `FootballMatchExtractor` to `~/airflow/dags`.
+4. Initialize airflow database and create an admin account.
+5. Start airflow webserver and scheduler.
 
 ### Result
 <table>
