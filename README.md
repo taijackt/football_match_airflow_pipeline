@@ -37,11 +37,29 @@
 </table>
 
 ### Steps:
-1. Create an EC2 instance (Ubuntu) on AWS.
-2. Install all the dependencies in `dependencies.sh`.
-3. Copy the dag file `football_etl_dag.py` and directory `FootballMatchExtractor` to `~/airflow/dags`.
-4. Initialize airflow database and create an admin account.
-5. Start airflow webserver and scheduler.
+1. Create an EC2 instance (Ubuntu) on AWS and make sure it is in the public subnet.
+2. Modify the security group so that the port 22 connection is allowed.
+3. Remote to the EC2 instance by SSH.
+4. Run `sudo apt-get update`
+5. Install all the libraries / packages that listed in `dependencies.sh`.
+6. Clone this project to the EC2.
+7. Copy the dag file `football_etl_dag.py` and directory `FootballMatchExtractor` to `~/airflow/dags`.
+8. Initialize airflow database and create an admin account.
+```bash
+airlfow db init
+airflow users create --role Admin --username <> --password <> --firstname <> --lastname <> --email <>
+```
+6. Start airflow webserver and scheduler.
+```bash
+airflow scheduler
+airflow webserver -p 8080
+```
+6. Visit to the airflow webserver by typing `<public ip of ec2 instance>:8080` on a browser tab to make sure it is running.
+   <img src="https://github.com/taijackt/football_match_airflow_pipeline/blob/main/screenshots/airflow.jpg" width="500"/>
+8. Create a new S3 bucket `football-match-etl-demo` and asign a role to EC2 to allow it upload file to the bucket.
+9. Unpause the dag.
+
+
 
 ### Result
 <table>
